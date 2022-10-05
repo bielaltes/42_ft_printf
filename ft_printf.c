@@ -25,23 +25,23 @@ static int	ft_parse_type(char const *str, va_list args, int *i, int *error)
 	//flags = getflags(str, i);
 	aux = *i;
 	++(*i);
-	if (str[*i] == 'c')
-		return (ft_printchar(flags, args, error));
-	else if (str[*i] == 's')
-		return (ft_printstr(flags, args, error));
-	else if (str[*i] == 'p')
-		return (ft_printpointer(flags, args, error));
-	else if (str[*i] == 'd')
-		return (ft_printdec(flags, args, error));
-	else if (str[*i] == 'i')
-		return (ft_printint(flags, args, error));
-	else if (str[*i] == 'u')
-		return (ft_printunsigned(flags, args, error));
-	else if (str[*i] == 'x')
-		return (ft_printhexmin(flags, args, error));
-	else if (str[*i] == 'X')
-		return (ft_printhexmaj(flags, args, error));
-	else if (str[*i] == '%')
+	if (str[aux] == 'c')
+		return (ft_printchar(flags, va_args(args, int), error));
+	else if (str[aux] == 's')
+		return (ft_printstr(flags, va_args(args, char *), error));
+	else if :wq(str[aux] == 'p')
+		return (ft_printpointer(flags, va_args(args, void *), error));
+	else if (str[aux] == 'd')
+		return (ft_printdec(flags, va_args(args, int), error));
+	else if (str[aux] == 'i')
+		return (ft_printint(flags, va_args(args, int), error));
+	else if (str[aux] == 'u')
+		return (ft_printunsigned(flags, va_args(args, unsigned int), error));
+	else if (str[aux] == 'x')
+		return (ft_printhexmin(flags, va_args(args, unsigned int), error));
+	else if (str[aux] == 'X')
+		return (ft_printhexmaj(flags, va_args(args, unsigned int), error));
+	else if (str[aux] == '%')
 		return (ft_print%(error));
 	write(1, "incomplete format specifier\n", 28);	
 }
