@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baltes-g <baltes-g@student.42barcel>       +#+  +:+       +#+        */
+/*   By: baltes-g <baltes-g@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:14:22 by baltes-g          #+#    #+#             */
-/*   Updated: 2022/09/30 15:10:05 by baltes-g         ###   ########.fr       */
+/*   Updated: 2022/11/04 17:35:19 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libprintf.h"
+#include "ft_printf.h"
 
 /*static t_flags getflags(char const *str, int *i)
 {
@@ -26,24 +26,26 @@ static int	ft_parse_type(char const *str, va_list args, int *i, int *error)
 	aux = *i;
 	++(*i);
 	if (str[aux] == 'c')
-		return (ft_printchar(flags, va_args(args, int), error));
+		return (ft_printchar(flags, va_arg(args, int), error));
 	else if (str[aux] == 's')
-		return (ft_printstr(flags, va_args(args, char *), error));
-	else if :wq(str[aux] == 'p')
-		return (ft_printpointer(flags, va_args(args, void *), error));
+		return (ft_printstr(flags, va_arg(args, char *), error));
+	else if (str[aux] == 'p')
+		return (ft_ptoa(flags, va_arg(args, unsigned long long int), error));
 	else if (str[aux] == 'd')
-		return (ft_printdec(flags, va_args(args, int), error));
+		return (ft_itoa(flags, va_arg(args, int), error));
 	else if (str[aux] == 'i')
-		return (ft_printint(flags, va_args(args, int), error));
+		return (ft_itoa(flags, va_arg(args, int), error));
 	else if (str[aux] == 'u')
-		return (ft_printunsigned(flags, va_args(args, unsigned int), error));
+		return (ft_uitoa(flags, va_arg(args, unsigned int), error));
 	else if (str[aux] == 'x')
-		return (ft_printhexmin(flags, va_args(args, unsigned int), error));
+		return (ft_htoa(flags, va_arg(args, unsigned int), error, 0));
 	else if (str[aux] == 'X')
-		return (ft_printhexmaj(flags, va_args(args, unsigned int), error));
+		return (ft_htoa(flags, va_arg(args, unsigned int), error, 1));
 	else if (str[aux] == '%')
-		return (ft_print%(error));
-	write(1, "incomplete format specifier\n", 28);	
+		return (ft_printchar(flags, '%', error));
+	write(1, "incomplete format specifier\n", 28);
+	*error = 1;
+	return (-1);
 }
 
 static int	ft_printvar(char const *str, va_list args, int *i, int *error)
@@ -86,7 +88,7 @@ int ft_printf(char const *str, ...)
 	return (sum);
 }
 
-int	main(int argc, char **argv)
+/*int	main(void)
 {
-	printf("%d", ft_printf("Hola\n"));
-}
+
+}*/

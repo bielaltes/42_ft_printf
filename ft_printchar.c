@@ -1,11 +1,12 @@
 
-#include "libprintf.h"
+#include "ft_printf.h"
 
 int ft_printchar(t_flags flags, int c, int *error)
 {
     int aux;
+    if (flags.content) aux = 0;
     aux = write(1, &c, 1);
-    if (aux = -1)
+    if (aux == -1)
         *error = 1;
     return (1);
 }
