@@ -12,7 +12,7 @@ static int	ft_putnbr(int nb) {
 	if (nb < 10) ft_putchar(nb + 48);
 }
 
-int ft_printdec(t_flags, int c, int *error)
+int ft_printint(t_flags, int c, int *error)
 {
     int aux;
     aux = ft_putnbr(c);
@@ -20,3 +20,5 @@ int ft_printdec(t_flags, int c, int *error)
         *error = 1;
     return (1);
 }
+
+

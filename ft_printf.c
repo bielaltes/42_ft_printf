@@ -76,6 +76,7 @@ int ft_printf(char const *str, ...)
 
 	error = 0;
 	i = 0;
+    sum = 0;
 	va_start(args, str);
 	while (str[i] && !error)
 		sum += ft_printvar(str, args, &i, &error);
