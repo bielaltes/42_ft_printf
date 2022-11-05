@@ -1,33 +1,45 @@
 CC=gcc
 NAME=libftprintf.a
 CFLAGS=-Wall -Wextra -Werror
-OPTIONS=-c -I
 INC = ft_printf.h
 LIB = ar rcs
 
-SRC =	ft_itoa.c		\
-		ft_printf.c		\
-		ft_htoa.c		\
-		ft_ptoa.c		\
-		ft_printstr.c	\
-		ft_uitoa.c		\
-		ft_printchar.c
+SRC =	SRC/ft_itoa.c		\
+		SRC/ft_printf.c		\
+		SRC/ft_htoa.c		\
+		SRC/ft_ptoa.c		\
+		SRC/ft_printstr.c	\
+		SRC/ft_uitoa.c		\
+		SRC/ft_printchar.c
+
+SRC_BNS =	SRC_BONUS/ft_itoa_bonus.c		\
+		SRC_BONUS/ft_printf_bonus.c			\
+		SRC_BONUS/ft_htoa_bonus.c			\
+		SRC_BONUS/ft_ptoa_bonus.c			\
+		SRC_BONUS/ft_printstr_bonus.c		\
+		SRC_BONUS/ft_uitoa_bonus.c			\
+		SRC_BONUS/ft_printchar_bonus.c
 
 OBJ=$(SRC:.c=.o)
 
+OBJ_BNS=$(SRC_BNS:.c=.o)
+
 all: $(NAME)
 
-%.o:%.c
+%.o:%.c $(INC)
 	@echo "Compilant $@" 
-	@$(CC) $(CFLAGS) -c  $< -o $@
+	$(CC) $(CFLAGS) -c -I $(INC) $< -o $@
 
 $(NAME): $(OBJ) $(INC)
 	@echo "Creant $@"
-	@$(LIB) $(NAME) $(OBJ)
+	$(LIB) $(NAME) $(OBJ)
 
+bonus: $(OBJ_BNS) $(INC)
+	@echo "Creant $@"
+	$(LIB) $(NAME) $(OBJ_BNS)
 
 clean:
-	rm -f $(OBJ)
+	rm -f $(OBJ) $(OBJ_BNS)
 
 fclean: clean
 	rm -f $(NAME)

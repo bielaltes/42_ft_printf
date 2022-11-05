@@ -6,11 +6,11 @@
 /*   By: baltes-g <baltes-g@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:14:22 by baltes-g          #+#    #+#             */
-/*   Updated: 2022/11/04 17:35:19 by baltes-g         ###   ########.fr       */
+/*   Updated: 2022/11/05 14:31:33 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../ft_printf.h"
 
 /*static t_flags getflags(char const *str, int *i)
 {
@@ -19,13 +19,11 @@
 
 static int	ft_parse_type(char const *str, va_list args, int *i, int *error)
 {
-	t_flags flags;
-	int aux;
+	t_flags	flags;
+	int		aux;
 
 	flags.content = 0;
-	//flags = getflags(str, i);
-	aux = *i;
-	++(*i);
+	aux = (*i)++;
 	if (str[aux] == 'c')
 		return (ft_printchar(flags, va_arg(args, int), error));
 	else if (str[aux] == 's')
@@ -44,26 +42,24 @@ static int	ft_parse_type(char const *str, va_list args, int *i, int *error)
 		return (ft_htoa(flags, va_arg(args, unsigned int), error, 1));
 	else if (str[aux] == '%')
 		return (ft_printchar(flags, '%', error));
-	write(1, "incomplete format specifier\n", 28);
 	*error = 1;
 	return (-1);
 }
 
 static int	ft_printvar(char const *str, va_list args, int *i, int *error)
 {
-	int aux;
-	//write(1, "a", 1);
+	int	aux;
+
 	if (str[*i] != '%')
 	{
 		aux = write(1, &str[*i], 1);
 		if (aux == -1)
-			*error = 1;			
+			*error = 1;
 		(*i)++;
 		return (1);
 	}
 	else if (str[*i] == '%')
 	{
-		//write(1, "b", 1);
 		(*i)++;
 		return (ft_parse_type(str, args, i, error));
 	}
@@ -75,16 +71,16 @@ static int	ft_printvar(char const *str, va_list args, int *i, int *error)
 	}	
 }
 
-int ft_printf(char const *str, ...)
+int	ft_printf(char const *str, ...)
 {
 	va_list	args;
-	int 	i;
-	int 	error;
+	int		i;
+	int		error;
 	int		sum;
 
 	error = 0;
 	i = 0;
-    sum = 0;
+	sum = 0;
 	va_start(args, str);
 	while (str[i] && error != 1)
 		sum += ft_printvar(str, args, &i, &error);
