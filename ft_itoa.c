@@ -17,20 +17,18 @@
 
 static void	ft_putnbr(t_flags flags, int nb, int *error, int *aux)
 {
-	if (nb < 0) {
-		ft_printchar(flags, '-', error);
-		(*aux)++;
-		nb = -nb;
-	}
-	if (nb >= 10) 
-	{
-		ft_putnbr(flags, nb / 10, error, aux);
-		nb = nb % 10;
-	}
-	if (nb < 10) 
-	{
-		ft_printchar(flags, nb + 48, error);
-		(*aux)++;
+		if (nb >= 10) 
+		{
+			ft_putnbr(flags, nb / 10, error, aux);
+			nb = nb % 10;
+		}
+		if (nb < 10) 
+		{
+			if (*error == 1)
+				return ;
+			(*aux) += ft_printchar(flags, nb + 48, error);
+			if (*error == 1)
+				return ;
 	}
 }
 
@@ -41,6 +39,11 @@ int ft_itoa(t_flags flags, int c, int *error)
 	aux = 0;
 	if (c == -2147483648)
 		return (ft_printstr(flags, "-2147483648", error));
-    ft_putnbr(flags, c, error, &aux);
+	if (c < 0) {
+		aux += ft_printchar(flags, '-', error);
+		c = -c;
+	}
+	if (*error == 0)
+    	ft_putnbr(flags, c, error, &aux);
     return (aux);
 }

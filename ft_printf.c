@@ -22,6 +22,7 @@ static int	ft_parse_type(char const *str, va_list args, int *i, int *error)
 	t_flags flags;
 	int aux;
 
+	flags.content = 0;
 	//flags = getflags(str, i);
 	aux = *i;
 	++(*i);
@@ -50,16 +51,21 @@ static int	ft_parse_type(char const *str, va_list args, int *i, int *error)
 
 static int	ft_printvar(char const *str, va_list args, int *i, int *error)
 {
-	if (str[*i] == '%' && str[*(i+1)])
+	int aux;
+	//write(1, "a", 1);
+	if (str[*i] != '%')
 	{
-		(*i)++;
-		return (ft_parse_type(str, args, i, error));
-	}
-	else if (str[*i] != '%')
-	{
-		write(1, &str[*i], 1);
+		aux = write(1, &str[*i], 1);
+		if (aux == -1)
+			*error = 1;			
 		(*i)++;
 		return (1);
+	}
+	else if (str[*i] == '%')
+	{
+		//write(1, "b", 1);
+		(*i)++;
+		return (ft_parse_type(str, args, i, error));
 	}
 	else
 	{
@@ -80,15 +86,17 @@ int ft_printf(char const *str, ...)
 	i = 0;
     sum = 0;
 	va_start(args, str);
-	while (str[i] && !error)
+	while (str[i] && error != 1)
 		sum += ft_printvar(str, args, &i, &error);
 	va_end(args);
-	if (error)
+	if (error == 1)
 		return (-1);
 	return (sum);
 }
 
-/*int	main(void)
+/*int	main()
 {
-
+	ft_printf("%p\n", 0);
+	printf("%p", (void *)0);
+	return (0);
 }*/

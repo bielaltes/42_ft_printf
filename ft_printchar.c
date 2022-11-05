@@ -7,6 +7,9 @@ int ft_printchar(t_flags flags, int c, int *error)
     if (flags.content) aux = 0;
     aux = write(1, &c, 1);
     if (aux == -1)
+    {
         *error = 1;
+        return (0);
+    }
     return (1);
 }

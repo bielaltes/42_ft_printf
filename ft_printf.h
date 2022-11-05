@@ -19,9 +19,8 @@
 
 typedef struct s_flags
 {
-	void			*content;
-	struct s_list	*next;
-}					t_flags;
+	int content;
+}				t_flags;
 
 int ft_htoa(t_flags flags, unsigned int c, int *error, int maj);
 int ft_itoa(t_flags flags, int c, int *error);

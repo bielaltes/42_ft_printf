@@ -8,8 +8,11 @@ static void	ft_putnbr(t_flags flags, unsigned int nb, int *error, int *aux)
 	}
 	if (nb < 10) 
 	{
-		ft_printchar(flags, nb + 48, error);
-		(*aux)++;
+		if (*error == 1)
+			return ;
+		*aux += ft_printchar(flags, nb + 48, error);
+		if (*error == 1)
+			return ;
 	}
 }
 

@@ -10,8 +10,11 @@ static void	ft_putnbr(t_flags flags, unsigned int nb, int *error, int *aux, char
 	}
 	if (nb < 16) 
 	{
-		ft_printchar(flags, base[nb], error);
-		(*aux)++;
+		if (*error == 1)
+			return ;
+		*aux += ft_printchar(flags, base[nb], error);
+		if (*error == 1)
+			return ;
 	}
 }
 
