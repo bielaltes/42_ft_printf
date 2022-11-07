@@ -28,15 +28,15 @@ all: $(NAME)
 
 %.o:%.c $(INC)
 	@echo "Compilant $@" 
-	$(CC) $(CFLAGS) -c -I $(INC) $< -o $@
+	@$(CC) $(CFLAGS) -c -I $(INC) $< -o $@
 
-$(NAME): $(OBJ) $(INC)
+$(NAME): $(OBJ)
 	@echo "Creant $@"
-	$(LIB) $(NAME) $(OBJ)
+	@$(LIB) $(NAME) $(OBJ)
 
-bonus: $(OBJ_BNS) $(INC)
+bonus: $(OBJ_BNS)
 	@echo "Creant $@"
-	$(LIB) $(NAME) $(OBJ_BNS)
+	@$(LIB) $(NAME) $(OBJ_BNS)
 
 clean:
 	rm -f $(OBJ) $(OBJ_BNS)
@@ -46,4 +46,4 @@ fclean: clean
 
 re: fclean all	
 
-.PHONY: clean fclean all re
+.PHONY: clean fclean all re bonus
